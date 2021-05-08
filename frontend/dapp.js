@@ -2673,11 +2673,13 @@ async function getBalance(tokenAddress) {
   let url = "http://localhost:5000/balance/" + user + "/" + tokenAddress;
 
   // TODO...
+  $.getJSON( url, function( data ) {
+    console.log(data)
+    console.log("Get balance for " + user + " for token " + tokenAddress);
+  });
 
-  console.log("Get balance for " + user + " for token " + tokenAddress);
 
 }
-
 
 
 main();
