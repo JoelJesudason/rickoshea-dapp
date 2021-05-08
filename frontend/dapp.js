@@ -2639,10 +2639,6 @@ async function approve(address) {
     await refreshSubscription(address);
  }
 
- async function startStream(address) {
-   let input = document.getElementById("input-amt-"+address).value
-   console.log("start streaming " + input + " USDCx/month");
-}
 
 async function refreshSubscription(address) {
    const sub = await ida.methods.getSubscription(
@@ -2663,5 +2659,25 @@ async function refreshSubscription(address) {
    }
 
 }
+
+
+async function startStream(address) {
+   let input = document.getElementById("input-amt-"+address).value
+   console.log("start streaming " + input + " USDCx/month");
+}
+
+
+
+async function getBalance(tokenAddress) {
+  // 1. HTTP requrest to API for balance
+  let url = "http://localhost:5000/balance/" + user + "/" + tokenAddress;
+
+  // TODO...
+
+  console.log("Get balance for " + user + " for token " + tokenAddress);
+
+}
+
+
 
 main();
