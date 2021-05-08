@@ -2626,7 +2626,7 @@ document.getElementById("start-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addE
 async function approve(address) {
   // Get the address for approval
     await host.methods.callAgreement(
-        ida._address,
+        "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c",
         ida.methods.approveSubscription(
             address,
             appAddress,
@@ -2640,7 +2640,7 @@ async function approve(address) {
 
  async function startStream(address) {
    let input = document.getElementById("input-amt-"+address).value
-   console.log("start streaming" + input + " USDCx/month");
+   console.log("start streaming " + input + " USDCx/month");
 }
 
 async function refreshSubscription(address) {
