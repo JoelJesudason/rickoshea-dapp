@@ -2592,18 +2592,22 @@ async function main() {
         "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c");
     console.debug("ida", ida._address);
 
+    // TODO: Refresh all Subscriptions
+    await refreshSubscription("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 
 }
 
-document.getElementById("0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860").addEventListener("click", function() {
+
+// TODO: Put this in a function and don't duplicate code, use a list and a loop
+document.getElementById("approve-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").addEventListener("click", function() {
     approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
-document.getElementById("0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
+document.getElementById("approve-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
     approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
-document.getElementById("0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
+document.getElementById("approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
     approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
@@ -2630,9 +2634,14 @@ async function refreshSubscription(address) {
        user
    ).call();
    console.log(sub);
-   document.getElementById("0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860").innerHTML = sub.approved ? "yes" : "no";
-   document.getElementById("0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").innerHTML = sub.units.toString();
-   document.getElementById("0x73cc407fbae89d69f20cf15d51aa98171dc5703c").innerHTML = web3.utils.fromWei(sub.pendingDistribution.toString(), "ether");
+   if (sub.approved) {
+     let abtn = document.getElementById("approve-"+address)
+     let sbtn = document.getElementById("start-"+address)
+     abtn.innerHTML = sub.approved ? "Approved" : "no";
+     abtn.disabled = true;
+     sbtn.disabled = false;
+   }
+
 }
 
 main();
