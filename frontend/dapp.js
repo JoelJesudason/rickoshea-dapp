@@ -2564,6 +2564,7 @@ let ida_abi = [
   }
 ];
 let web3, usdcx, user, host, ida, drt;
+let appAddress = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41";
 
 async function main() {
     await ethereum.enable();
@@ -2596,22 +2597,56 @@ async function main() {
         "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c");
     console.debug("ida", ida._address);
 
+    // TODO: Refresh all Subscriptions
+    await refreshSubscription("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 
 }
 
-async function approve() {
+
+// TODO: Put this in a function and don't duplicate code, use a list and a loop
+document.getElementById("approve-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").addEventListener("click", function() {
+    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+document.getElementById("approve-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
+    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+document.getElementById("approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
+    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+async function approve(address) {
+  // Get the address for approval
     await host.methods.callAgreement(
         ida._address,
         ida.methods.approveSubscription(
-            usdcx._address,
-            "0xd76b685e4a025E173D5B420F368DdE70f4e40E41",
+            address,
+            appAddress,
             0,
             "0x"
         ).encodeABI(),
         "0x"
     ).send({ from: user });
-    await refreshSubscription();
-    await refreshBalance();
+    await refreshSubscription(address);
+ }
+
+async function refreshSubscription(address) {
+   const sub = await ida.methods.getSubscription(
+       address,
+       appAddress,
+       0,
+       user
+   ).call();
+   console.log(sub);
+   if (sub.approved) {
+     let abtn = document.getElementById("approve-"+address)
+     let sbtn = document.getElementById("start-"+address)
+     abtn.innerHTML = sub.approved ? "Approved" : "no";
+     abtn.disabled = true;
+     sbtn.disabled = false;
+   }
+
 }
 
 main();
