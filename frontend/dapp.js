@@ -2559,6 +2559,7 @@ let ida_abi = [
   }
 ];
 let web3, usdcx, user, host, ida, drt;
+let appAddress = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41";
 
 async function main() {
     await ethereum.enable();
@@ -2594,19 +2595,44 @@ async function main() {
 
 }
 
-async function approve() {
+document.getElementById("0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860").addEventListener("click", function() {
+    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+document.getElementById("0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
+    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+document.getElementById("0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
+    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+async function approve(address) {
+  // Get the address for approval
     await host.methods.callAgreement(
         ida._address,
         ida.methods.approveSubscription(
-            usdcx._address,
-            "0xd76b685e4a025E173D5B420F368DdE70f4e40E41",
+            address,
+            appAddress,
             0,
             "0x"
         ).encodeABI(),
         "0x"
     ).send({ from: user });
-    await refreshSubscription();
-    await refreshBalance();
+    await refreshSubscription(address);
+ }
+
+async function refreshSubscription(address) {
+   const sub = await ida.methods.getSubscription(
+       address,
+       appAddress,
+       0,
+       user
+   ).call();
+   console.log(sub);
+   document.getElementById("0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860").innerHTML = sub.approved ? "yes" : "no";
+   document.getElementById("0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").innerHTML = sub.units.toString();
+   document.getElementById("0x73cc407fbae89d69f20cf15d51aa98171dc5703c").innerHTML = web3.utils.fromWei(sub.pendingDistribution.toString(), "ether");
 }
 
 main();

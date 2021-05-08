@@ -12,10 +12,6 @@
 </head>
 
 <body class="grey lighten-3">
-  
-  <label>Approved: </label> <span id="approved">no</span><br/>
-  <button onclick="approve()">Approve</button><br/>
-
 
     <div class="row">
         <!-- Title & Logo -->
@@ -52,27 +48,35 @@
                     <th>Inbound Rate</th>
                     <th>Total Inflow</th>
                     <th>Total Outflow</th>
+                    <th> </th>
+                    <th> </th>
                   </tr>
                   <tr>
                     <td>maWETHx</td>
-                    <td>0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860 📋</td>
+                    <td>0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860<br/></td>
                     <td>0 maWETHx/hr</td>
                     <td><div id="stream-num">0</div> USDCx</td>
                     <td>0 maWETHx</td>
+                    <td><button onclick="approve()" id="approve-0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860">Approve</button> </td>
+                    <td><button onclick="startStream()" id="start-0x376c4c43E092Bd48a9cdc8259dEc833bbD6d6860">Stream</button> </td>
                   </tr>
                   <tr>
                     <td>maUSDCx</td>
-                    <td>0x426CA1eA2406c07d75Db9585F22781c096e3d0E0 📋</td>
+                    <td>0x426CA1eA2406c07d75Db9585F22781c096e3d0E0<br/></td>
                     <td>0 maUSDCx/hr</td>
                     <td>0 USDCx</td>
                     <td>0 maUSDCx</td>
+                    <td><button onclick="approve()" id="approve-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0">Approve</button> </td>
+                    <td><button onclick="startStream()" id="start-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0">Stream</button> </td>
                   </tr>
                   <tr>
                     <td>maWBTCx</td>
-                    <td>0x73cc407fbae89d69f20cf15d51aa98171dc5703c 📋</td>
+                    <td>0x73cc407fbae89d69f20cf15d51aa98171dc5703c<br/></td>
                     <td>0 maWBTCx/hr</td>
                     <td>0 USDCx</td>
                     <td>0 maWBTCx</td>
+                    <td><button onclick="approve()" id="approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c">Approve</button> </td>
+                    <td><button onclick="startStream()" id="start-0x73cc407fbae89d69f20cf15d51aa98171dc5703c">Stream</button> </td>
                   </tr>
                 </table>
             </div>
