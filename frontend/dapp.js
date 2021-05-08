@@ -21,17 +21,13 @@ async function animateValue(obj, start, end, duration) {
         }
     };
     window.requestAnimationFrame(step);
-}
+  }
+
 
 async function createFlow() {
 
     const rate = $("#dapp-createflow-dca-rate").val();
     const superapp_address = $("#dapp-createflow-superapp-address").val();
-
-    host = new web3.eth.Contract(
-    sf_abi,
-    "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9");
-    console.debug("host", host._address);
 
     console.log(rate);
     console.log(superapp_address);
