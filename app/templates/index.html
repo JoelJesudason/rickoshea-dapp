@@ -17,7 +17,7 @@
         <!-- Title & Logo -->
         <div class="row">
           <div class = "col">
-            <img src="rick-sanchez.png" >
+            <img src="{{ url_for('static', filename='rick-sanchez.png') }}" >
           </div>
           <div class = "col">
             <h3 style="margin-left: 5%">Rickoshea</h3>
@@ -74,13 +74,13 @@
         </div>
 
     <!-- JQuery 3.4.1 slim minified -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- Compiled and minified JavaScript for Materialize CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0=" crossorigin="anonymous"></script>
     <!-- Web3.js -->
     <script src="https://cdn.jsdelivr.net/npm/web3@1.2.5-rc.0/dist/web3.min.js" integrity="sha256-ZjUHyLZZWkQPbWfRjTSmGtfcTSOermVT6f/CvJW2RY4=" crossorigin="anonymous"></script>
 
-    <script src="dapp.js"></script>
+    <script src="{{ url_for('static', filename='dapp.js') }}"></script>
 
 </body>
 

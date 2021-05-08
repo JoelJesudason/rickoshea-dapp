@@ -2566,6 +2566,7 @@ async function main() {
     await ethereum.enable();
     web3 = new Web3(ethereum);
     user = (await web3.eth.getAccounts())[0];
+    setInterval(getBalance("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947"), 5000);
     const networkId = await web3.eth.net.getId();
     console.debug("networkId", networkId);
 
@@ -2673,6 +2674,7 @@ async function getBalance(tokenAddress) {
   let url = "http://localhost:5000/balance/" + user + "/" + tokenAddress;
 
   // TODO...
+  console.log(url)
   $.getJSON( url, function( data ) {
     console.log(data)
     console.log("Get balance for " + user + " for token " + tokenAddress);
@@ -2680,6 +2682,7 @@ async function getBalance(tokenAddress) {
 
 
 }
+
 
 
 main();
