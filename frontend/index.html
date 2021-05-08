@@ -12,6 +12,9 @@
 </head>
 
 <body class="grey lighten-3">
+  
+  <label>Approved: </label> <span id="approved">no</span><br/>
+  <button onclick="approve()">Approve</button><br/>
 
 
     <div class="row">
@@ -20,7 +23,7 @@
           <h3 style="margin-left: 5%">Rickoshea</h3>
           <p style="margin-left: 5%">Scaling and simplifying Dollar-cost Averaging (DCA)</p>
         </div>
-        
+
         <!-- Form where DCA stream is initiated -->
         <div align="right" class="col s3 dapp-admin" style="margin-right: 10%"">
           <table style="width:100%">
@@ -82,57 +85,7 @@
     <!-- Web3.js -->
     <script src="https://cdn.jsdelivr.net/npm/web3@1.2.5-rc.0/dist/web3.min.js" integrity="sha256-ZjUHyLZZWkQPbWfRjTSmGtfcTSOermVT6f/CvJW2RY4=" crossorigin="anonymous"></script>
 
-    <script>
-
-        async function ethEnabled() {
-            // If the browser has an Ethereum provider (MetaMask) installed
-            if (window.ethereum) {
-                window.web3 = new Web3(window.ethereum);
-                window.ethereum.enable();
-                return true;
-            }
-            return false;
-        }
-
-
-        async function animateValue(obj, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Number.parseFloat((progress * (end - start) + start)).toFixed(3);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        async function createFlow() {
-
-            const rate = $("#dapp-createflow-dca-rate").val();
-            const superapp_address = $("#dapp-createflow-superapp-address").val();
-
-            console.log(rate);
-            console.log(superapp_address);
-
-            const changing_num = document.getElementById("stream-num");
-
-            this.animateValue(changing_num,0,100000,1000000000000)
-
-            return;
-
-        }
-
-        async function main() {
-                // Initialize web3
-        if (!this.ethEnabled()) {
-            alert("Please install MetaMask to use this dApp!");
-            }
-        }
-
-
-    </script>
+    <script src="dapp.js"></script>
 
 </body>
 
