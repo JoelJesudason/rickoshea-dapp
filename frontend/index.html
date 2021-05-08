@@ -20,23 +20,6 @@
           <p style="margin-left: 5%">Scaling and simplifying Dollar-cost Averaging (DCA)</p>
         </div>
 
-        <!-- Form where DCA stream is initiated -->
-        <div align="right" class="col s3 dapp-admin" style="margin-right: 10%"">
-          <table style="width:100%">
-            <tr>
-              <td>App Address</td>
-              <td><span class="card-title"><input id="dapp-createflow-superapp-address" placeholder="Paste here..." /></span></td>
-            </tr>
-            <tr>
-              <td>DCA Hourly Rate</td>
-              <td><span class="card-title"><input id="dapp-createflow-dca-rate" /></span></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td> <a id="dapp-createflow" href="#" onclick="dApp.createFlow()">Start Streaming!</a> </td>
-            </tr>
-          </table>
-        </div>
 
         <div class="col s11" style="margin: 5%"">
             <div class="card blue-grey darken-1">
@@ -58,6 +41,7 @@
                     <td><div id="stream-num">0</div> USDCx</td>
                     <td>0 maWETHx</td>
                     <td><button onclick="approve()" id="approve-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947">Approve</button> </td>
+                    <td><input type="text" id="input-amt-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947" value="100" disabled> USDCx/month</td>
                     <td><button onclick="startStream()" id="start-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947" disabled>Stream</button> </td>
                   </tr>
                   <tr>
@@ -67,6 +51,7 @@
                     <td>0 USDCx</td>
                     <td>0 maUSDCx</td>
                     <td><button onclick="approve()" id="approve-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0">Approve</button> </td>
+                    <td><input type="text" id="input-amt-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0" value="100" disabled> USDCx/month</td>
                     <td><button onclick="startStream()" id="start-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0" disabled>Stream</button> </td>
                   </tr>
                   <tr>
@@ -76,6 +61,7 @@
                     <td>0 USDCx</td>
                     <td>0 maWBTCx</td>
                     <td><button onclick="approve()" id="approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c">Approve</button> </td>
+                    <td><input type="text" id="input-amt-0x73cc407fbae89d69f20cf15d51aa98171dc5703c" value="100" disabled> USDCx/month</td>
                     <td><button onclick="startStream()" id="start-0x73cc407fbae89d69f20cf15d51aa98171dc5703c" disabled>Stream</button> </td>
                   </tr>
                 </table>

@@ -2612,6 +2612,18 @@ document.getElementById("approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").ad
     approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
+document.getElementById("start-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").addEventListener("click", function() {
+    startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+document.getElementById("start-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
+    startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
+document.getElementById("start-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
+    startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+}, false);
+
 async function approve(address) {
   // Get the address for approval
     await host.methods.callAgreement(
@@ -2627,6 +2639,11 @@ async function approve(address) {
     await refreshSubscription(address);
  }
 
+ async function startStream(address) {
+   let input = document.getElementById("input-amt-"+address).value
+   console.log("start streaming" + input + " USDCx/month");
+}
+
 async function refreshSubscription(address) {
    const sub = await ida.methods.getSubscription(
        address,
@@ -2638,9 +2655,11 @@ async function refreshSubscription(address) {
    if (sub.approved) {
      let abtn = document.getElementById("approve-"+address)
      let sbtn = document.getElementById("start-"+address)
+     let input = document.getElementById("input-amt-"+address)
      abtn.innerHTML = sub.approved ? "Approved" : "no";
      abtn.disabled = true;
      sbtn.disabled = false;
+     input.disabled = false;
    }
 
 }
