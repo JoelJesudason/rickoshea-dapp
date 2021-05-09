@@ -34,7 +34,7 @@ async function startAnimation() {
 
     const changing_num = document.getElementById("stream-num");
 
-    this.animateValue(changing_num,0,100000,100000000)
+    this.animateValue(changing_num,0,100000,100000000000)
 
     return;
 
