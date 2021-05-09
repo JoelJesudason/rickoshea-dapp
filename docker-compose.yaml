@@ -1,0 +1,11 @@
+version: '2'
+services:
+  dispatcher:
+    build: . # Use the local Dockerfile
+    volumes:
+      - ./app:/app
+    restart: on-failure
+    ports:
+      - "3000:80"
+    environment:
+      - WEB3_INFURA_PROJECT_ID=f046c2bf6d71458dab65361f31d41c6d

@@ -2560,28 +2560,28 @@ let ida_abi = [
   }
 ];
 let web3, usdcx, user, host, ida, drt;
-let appAddress = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41";
+let appAddress = "0x40828103207d288a0c6E460B7EB587a94D1a8dE2";
 
 async function main() {
     await ethereum.enable();
     web3 = new Web3(ethereum);
     user = (await web3.eth.getAccounts())[0];
-    setInterval(getBalance("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947"), 5000);
+    // setInterval(getBalance("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947"), 5000);
     const networkId = await web3.eth.net.getId();
     console.debug("networkId", networkId);
 
     const resolver = new web3.eth.Contract(
         res_abi,
-        "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E");
+        "0x851d3dd9dc97c1df1DA73467449B3893fc76D85B");
     console.debug("resolver", resolver._address);
 
     usdcx = new web3.eth.Contract(
         erc20_abi,
-        "0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+        "0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590");
 
     host = new web3.eth.Contract(
         sf_abi,
-        "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9");
+        "0xF0d7d1D47109bA426B9D8A3Cde1941327af1eea3");
     console.debug("host", host._address);
 
     // load agreements
@@ -2591,18 +2591,18 @@ async function main() {
     const idaAddress = await host.methods.getAgreementClass(idav1Type).call();
     ida = new web3.eth.Contract(
         ida_abi,
-        "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c");
+        "0x556ba0b3296027Dd7BCEb603aE53dEc3Ac283d2b");
     console.debug("ida", ida._address);
 
     // TODO: Refresh all Subscriptions
-    await refreshSubscription("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+    await refreshSubscription("0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590");
 
 }
 
 
 // TODO: Put this in a function and don't duplicate code, use a list and a loop
-document.getElementById("approve-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").addEventListener("click", function() {
-    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+document.getElementById("approve-0x40828103207d288a0c6E460B7EB587a94D1a8dE2").addEventListener("click", function() {
+    approve("0x40828103207d288a0c6E460B7EB587a94D1a8dE2");
 }, false);
 
 document.getElementById("approve-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
@@ -2613,8 +2613,8 @@ document.getElementById("approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").ad
     approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
-document.getElementById("start-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").addEventListener("click", function() {
-    startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+document.getElementById("start-0x40828103207d288a0c6E460B7EB587a94D1a8dE2").addEventListener("click", function() {
+    startStream("0x40828103207d288a0c6E460B7EB587a94D1a8dE2");
 }, false);
 
 document.getElementById("start-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
@@ -2627,8 +2627,11 @@ document.getElementById("start-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addE
 
 async function approve(address) {
   // Get the address for approval
+  console.log("IDA 0x556ba0b3296027Dd7BCEb603aE53dEc3Ac283d2b")
+  console.log(address);
+  console.log(appAddress);
     await host.methods.callAgreement(
-        "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c",
+        "0x556ba0b3296027Dd7BCEb603aE53dEc3Ac283d2b",
         ida.methods.approveSubscription(
             address,
             appAddress,
