@@ -2560,7 +2560,8 @@ let ida_abi = [
   }
 ];
 let web3, usdcx, user, host, ida, drt;
-let appAddress = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41";
+// let appAddress = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41"; // Goerli - ETHx
+let appAddress = "0x65B09D9494A73F9a4da87de3475318738192F6C0"; // Kovan - aAAVEx
 
 async function main() {
     await ethereum.enable();
@@ -2572,16 +2573,14 @@ async function main() {
 
     const resolver = new web3.eth.Contract(
         res_abi,
-        "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E");
+        // "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E"); // Goerli
+        "0x851d3dd9dc97c1df1DA73467449B3893fc76D85B"); // Kovan
     console.debug("resolver", resolver._address);
-
-    usdcx = new web3.eth.Contract(
-        erc20_abi,
-        "0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 
     host = new web3.eth.Contract(
         sf_abi,
-        "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9");
+        // "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9"); // Goerli
+        "0xF0d7d1D47109bA426B9D8A3Cde1941327af1eea3"); // Kovan
     console.debug("host", host._address);
 
     // load agreements
@@ -2591,11 +2590,12 @@ async function main() {
     const idaAddress = await host.methods.getAgreementClass(idav1Type).call();
     ida = new web3.eth.Contract(
         ida_abi,
-        "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c");
+        // "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c"); // Goerli
+        "0x556ba0b3296027Dd7BCEb603aE53dEc3Ac283d2b"); // Kovan
     console.debug("ida", ida._address);
 
     // TODO: Refresh all Subscriptions
-    await refreshSubscription("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+    await refreshSubscription("0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590");
 
 }
 
