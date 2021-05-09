@@ -24,7 +24,7 @@ async function animateValue(obj, start, end, duration) {
   }
 
 
-async function createFlow() {
+async function startAnimation() {
 
     const rate = $("#dapp-createflow-dca-rate").val();
     const superapp_address = $("#dapp-createflow-superapp-address").val();
@@ -34,7 +34,7 @@ async function createFlow() {
 
     const changing_num = document.getElementById("stream-num");
 
-    this.animateValue(changing_num,0,100000,1000000000000)
+    this.animateValue(changing_num,0,100000,100000000)
 
     return;
 
