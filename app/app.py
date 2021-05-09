@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, jsonify
 from flask import request
-from flask_cors import CORS,cross_origin
+# from flask_cors import CORS,cross_origin
 # from web3.auto.infura import w3
 from pathlib import Path
 import os
@@ -22,17 +22,36 @@ print("w3 connected:",str(w3.isConnected()))
 
 app = Flask(__name__)
 
-CORS(app)
+# CORS(app)
+
+# See: https://gist.github.com/itsnauman/b3d386e4cecf97d59c94
+@app.context_processor
+def override_url_for():
+    """
+    Generate a new token on every request to prevent the browser from
+    caching static files.
+    """
+    return dict(url_for=dated_url_for)
+
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
 
 @app.route('/')
 def indexfunc():
     return render_template("index.html")
-    
+
 @app.route('/balance/<user_address>/<token_address>')
 def balance(user_address,token_address):
 
     # loading abi
-    with open(Path("/ERC20_abi.json")) as json_file:
+    with open(Path("ERC20_abi.json")) as json_file:
         erc20_abi = json.load(json_file)
 
     # DApp contract address
@@ -48,10 +67,9 @@ def balance(user_address,token_address):
 
     print(tokenamount/1000000000000000000)
     output={"User balance":tokenamount/1000000000000000000}
-    
+
     return jsonify(output)
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-

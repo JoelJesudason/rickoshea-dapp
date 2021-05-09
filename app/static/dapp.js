@@ -2566,7 +2566,7 @@ async function main() {
     await ethereum.enable();
     web3 = new Web3(ethereum);
     user = (await web3.eth.getAccounts())[0];
-    setInterval(getBalance("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947"), 5000);
+    // setInterval(getBalance("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947"), 5000);
     const networkId = await web3.eth.net.getId();
     console.debug("networkId", networkId);
 
@@ -2605,25 +2605,19 @@ document.getElementById("approve-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").ad
     approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
-document.getElementById("approve-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
-    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+document.getElementById("approve-0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590").addEventListener("click", function() {
+    approve("0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590");
 }, false);
 
-document.getElementById("approve-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
-    approve("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
-}, false);
 
 document.getElementById("start-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").addEventListener("click", function() {
     startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
 }, false);
 
-document.getElementById("start-0x426CA1eA2406c07d75Db9585F22781c096e3d0E0").addEventListener("click", function() {
-    startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
+document.getElementById("start-0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590").addEventListener("click", function() {
+    startStream("0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590");
 }, false);
 
-document.getElementById("start-0x73cc407fbae89d69f20cf15d51aa98171dc5703c").addEventListener("click", function() {
-    startStream("0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947");
-}, false);
 
 async function approve(address) {
   // Get the address for approval
