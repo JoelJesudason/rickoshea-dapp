@@ -33,6 +33,9 @@ async function startAnimation() {
     console.log(superapp_address);
 
     const changing_num = document.getElementById("stream-num");
+    const inbound_rate_ETHx = document.getElementById("inbound-rate");
+    let inbound_rate_USDC = document.getElementById("input-amt-0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947").value
+    inbound_rate_ETHx.innerHTML = Number.parseFloat(inbound_rate_USDC/3500).toFixed(3);
 
     this.animateValue(changing_num,0,100000,100000000000)
 
