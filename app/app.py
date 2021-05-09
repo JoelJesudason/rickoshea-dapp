@@ -66,7 +66,7 @@ def balance(user_address,token_address):
     tokenamount = erc20_instance.functions.balanceOf(Web3.toChecksumAddress(user_address)).call()
 
     print(tokenamount/1000000000000000000)
-    output={"User balance":tokenamount/1000000000000000000}
+    output={"balance":tokenamount/1000000000000000000}
 
     return jsonify(output)
 
