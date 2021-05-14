@@ -1,0 +1,18 @@
+Section of page that's got the details for the aAAVEx token
+                  <!-- <tr>
+                    <td>aAAVEx</td>
+                    <td>0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590<br/></td>
+                    <td>0 aAAVEx/hr</td>
+                    <td>0 USDCx</td>
+                    <td>0 aAAVEx</td>
+                    <td><button onclick="approve()" id="approve-0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590">Approve</button> </td>
+                    <td><input type="text" id="input-amt-0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590"  disabled> USDCx/month</td>
+                    <td><button onclick="startStream()" id="start-0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590" disabled>Stream</button> </td>
+                  </tr> -->
+
+Little debugging codeblock for dapp.js getBalance function
+
+  // $.getJSON( url, function( data ) {
+  //   console.log(data)
+  //   console.log("Get balance for " + user + " for token " + tokenAddress);
+  // });

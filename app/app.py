@@ -51,12 +51,11 @@ def indexfunc():
 def balance(user_address,token_address):
 
     # loading abi
-    with open(Path("ERC20_abi.json")) as json_file:
+    with open(Path("./abis/IERC20.json")) as json_file:
         erc20_abi = json.load(json_file)
 
     # DApp contract address
     dapp_address = '0xd76b685e4a025E173D5B420F368DdE70f4e40E41'
-
 
     erc20_instance = w3.eth.contract(
         address=Web3.toChecksumAddress(token_address),
