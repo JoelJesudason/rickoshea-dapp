@@ -20,6 +20,10 @@ w3 = Web3(Web3.WebsocketProvider(PROVIDER_URI))
 print("env loaded") if type(os.getenv("WEB3_INFURA_PROJECT_ID")) == str else print("env not loaded")
 print("w3 connected:",str(w3.isConnected()))
 
+# loading abi
+with open(Path("./static/IERC20.json")) as json_file:
+    erc20_abi = json.load(json_file)
+
 app = Flask(__name__)
 
 # CORS(app)
@@ -47,12 +51,8 @@ def dated_url_for(endpoint, **values):
 def indexfunc():
     return render_template("index.html")
 
-@app.route('/balance/<user_address>/<token_address>')
-def balance(user_address,token_address):
-
-    # loading abi
-    with open(Path("./abis/IERC20.json")) as json_file:
-        erc20_abi = json.load(json_file)
+@app.route('/erc20_balance/<user_address>/<token_address>')
+def erc20_balance(user_address,token_address):
 
     # DApp contract address
     dapp_address = '0xd76b685e4a025E173D5B420F368DdE70f4e40E41'

@@ -1,82 +1,30 @@
-async function ethEnabled() {
-    // If the browser has an Ethereum provider (MetaMask) installed
-    if (window.ethereum) {
-        window.web3 = new Web3(window.ethereum);
-        window.ethereum.enable();
-        return true;
-    }
-    return false;
-}
-
 let web3, usdcx, user, host, ida, drt;
 
 
-this.ETHxAppAddr = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41"; // Goerli - ETHx App
-// this.aAAVExAppAddr = "0x65B09D9494A73F9a4da87de3475318738192F6C0"; // Kovan - aAAVEx App
+const ETHxAppAddr = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41"; // Goerli - ETHx App
+// const aAAVExAppAddr = "0x65B09D9494A73F9a4da87de3475318738192F6C0"; // Kovan - aAAVEx App
 
-this.appAddr = this.ETHxAppAddr; // Currently implemented for ETHx on Goerli
+const appAddr = ETHxAppAddr; // Currently implemented for ETHx on Goerli
 
-this.stxAddr = "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E"; // Goerli StreamExchange contract
-this.isuAddr = "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9"; // Goerli ISuperfluid contract
-this.idaAddr = "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c"; // Goerli Instant Distribution Agreement contract
-// this.stxAddr = "0x851d3dd9dc97c1df1DA73467449B3893fc76D85B" // Kovan StreamExchange contract
-// this.isuAddr = "0xF0d7d1D47109bA426B9D8A3Cde1941327af1eea3" // Kovan ISuperfluid contract
-// this.idaAddr = "0x556ba0b3296027Dd7BCEb603aE53dEc3Ac283d2b" // Kovan Instant Distribution Agreement contract
+const stxAddr = "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E"; // Goerli StreamExchange contract
+const isuAddr = "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9"; // Goerli ISuperfluid contract
+const idaAddr = "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c"; // Goerli Instant Distribution Agreement contract
+// const stxAddr = "0x851d3dd9dc97c1df1DA73467449B3893fc76D85B" // Kovan StreamExchange contract
+// const isuAddr = "0xF0d7d1D47109bA426B9D8A3Cde1941327af1eea3" // Kovan ISuperfluid contract
+// const idaAddr = "0x556ba0b3296027Dd7BCEb603aE53dEc3Ac283d2b" // Kovan Instant Distribution Agreement contract
 
-this.ETHxAddr = "0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947" // Goerli - ETHx token
-this.aAAVExAddr = "0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590"; // Kovan - aAAVEx token
-
-async function main() {
-    await ethereum.enable();
-    web3 = new Web3(ethereum);
-    user = (await web3.eth.getAccounts())[0];
-    setInterval(getBalance(this.ETHxAddr),5000);
-    const networkId = await web3.eth.net.getId();
-    console.debug("networkId", networkId);
-
-    this.ercJson = await (await fetch("./IERC20.json")).json();
-    this.idaJson = await (await fetch("./IInstantDistributionAgreementV1.json")).json();
-    this.isuJson = await (await fetch("./ISuperfluid.json")).json();
-    this.stxJson = await (await fetch("./StreamExchange.json")).json();
-
-    const resolver = new web3.eth.Contract(
-      // res_abi,
-      this.stxJson,
-      this.stxAddr); // Goerli
-    console.debug("resolver", resolver._address);
-
-    const host = new web3.eth.Contract(
-      // sf_abi,
-      this.isuJson,
-      this.isuAddr); // Goerli
-    console.debug("host", host._address);
-
-    const ida = new web3.eth.Contract(
-      // ida_abi,
-      this.idaJson,
-      this.idaAddr); // Goerli
-    console.debug("ida", ida._address);
-
-    // load agreements
-    const idav1Type = web3.utils.sha3(
-        "org.superfluid-finance.agreements.InstantDistributionAgreement.v1"
-    );
-    const idaAddress = await host.methods.getAgreementClass(idav1Type).call();
-
-    // TODO: Refresh all Subscriptions
-    await refreshSubscription(this.ETHxAddr); // Goerli
-    // await refreshSubscription(this.aAAVExAddr); // Kovan
-
-}
-
+const ETHxAddr = "0x5943F705aBb6834Cad767e6E4bB258Bc48D9C947"; // Goerli - ETHx token
+const aAAVExAddr = "0x5a669e6A17B056Ca87e54c3Ca889114dB5A02590"; // Kovan - aAAVEx token
+const fUSDCxAddr = "0x8aE68021f6170E5a766bE613cEA0d75236ECCa9a";
 
 // TODO: Put this in a function and don't duplicate code, use a list and a loop
-document.getElementById("approve-" + this.ETHxAddr).addEventListener("click", function() {
-    approve(this.ETHxAddr);
+// you don't need this. when using const
+document.getElementById("approve-" + ETHxAddr).addEventListener("click", function() {
+  approve(ETHxAddr);
 }, false);
 
-document.getElementById("start-" + this.ETHxAddr).addEventListener("click", function() {
-  startStream(this.ETHxAddr);
+document.getElementById("start-" + ETHxAddr).addEventListener("click", function() {
+startStream(ETHxAddr);
 }, false);
 
 // Aave functionality on pause
@@ -88,12 +36,21 @@ document.getElementById("start-" + this.ETHxAddr).addEventListener("click", func
 //     startStream(this.aAAVExAddr);
 // }, false);
 
+async function ethEnabled() {
+    // If the browser has an Ethereum provider (MetaMask) installed
+    if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        window.ethereum.enable();
+        return true;
+    }
+    return false;
+}
 
 
 async function approve(address) {
   // Get the address for approval
     await host.methods.callAgreement(
-      this.idaAddr, // Goerli
+        idaAddr, // Goerli
         ida.methods.approveSubscription(
             address,
             appAddr,
@@ -128,27 +85,30 @@ async function refreshSubscription(address) {
 
 // TODO: Build this out so it actually works!!
 async function startStream(address) {
-   let input = document.getElementById("input-amt-"+address).value;
-   console.log("Start streaming " + input + " USDCx/month");
+  let input = document.getElementById("input-amt-"+address).value;
+  console.log("Start streaming " + input + " USDCx/month");
 
-   const user = host.user({
-    address: walletAddress[0],
-    token: address
+  const user = host.user({
+  address: walletAddress[0],
+  token: address
   });
+
 }
 
 
-async function getBalance(tokenAddress) {
+async function getBalance(tokenAddress,elementId) {
   // HTTP requrest to API for balance
-  let url = "http://localhost:5000/balance/" + user + "/" + tokenAddress;
-  // console.log(url)
+  let url = "http://localhost:5000/erc20_balance/" + user + "/" + tokenAddress;
+  console.log(url)
 
   return fetch(url)
   .then(function (response) {
-    return response.json();
+    payload = response.json();
+    console.log(payload);
+    return payload;
   })
   .then(function (payload) {
-    document.getElementById("ETHxBalance").innerHTML = payload.balance;
+    document.getElementById(elementId).innerHTML = payload.balance;
     console.log(payload.balance);
   })
   .catch(function (error) {
@@ -157,5 +117,48 @@ async function getBalance(tokenAddress) {
 
 }
 
+async function main() {
+  await ethereum.enable();
+  web3 = new Web3(ethereum);
+  user = (await web3.eth.getAccounts())[0];
+  // setInterval(getBalance(ETHxAddr,"DCAAssetBalance"),5000);
+  setInterval(getBalance(fUSDCxAddr,"USDCxBalance"),5000);
+  const networkId = await web3.eth.net.getId();
+  console.log("networkId", networkId);
+
+  // const ercJson = await (await fetch("./IERC20.json")).json();
+  const idaJson = await (await fetch("./static/IInstantDistributionAgreementV1.json")).json();
+  const isuJson = await (await fetch("./static/ISuperfluid.json")).json();
+  const stxJson = await (await fetch("./static/StreamExchange.json")).json();
+
+  const resolver = new web3.eth.Contract(
+    // res_abi,
+    stxJson,
+    stxAddr); // Goerli
+  console.log("resolver", resolver._address);
+
+  const host = new web3.eth.Contract(
+    // sf_abi,
+    isuJson,
+    isuAddr); // Goerli
+  console.log("host", host._address);
+
+  const ida = new web3.eth.Contract(
+    // ida_abi,
+    idaJson,
+    idaAddr); // Goerli
+  console.log("ida", ida._address);
+
+  // load agreements
+  const idav1Type = web3.utils.sha3(
+      "org.superfluid-finance.agreements.InstantDistributionAgreement.v1"
+  );
+  const idaAddress = await host.methods.getAgreementClass(idav1Type).call();
+
+  // TODO: Refresh all Subscriptions
+  await refreshSubscription(ETHxAddr); // Goerli
+  // await refreshSubscription(this.aAAVExAddr); // Kovan
+
+}
 
 main();
