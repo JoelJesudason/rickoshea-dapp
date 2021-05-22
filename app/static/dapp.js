@@ -1,6 +1,7 @@
 // TODO: if account change, refreshSubscription
 
 let web3, usdcx, user, host, ida, drt;
+let SuperfluidSDK, sf;
 
 
 const ETHxAppAddr = "0xd76b685e4a025E173D5B420F368DdE70f4e40E41"; // Goerli - ETHx App
@@ -11,6 +12,7 @@ const appAddr = ETHxAppAddr; // Currently implemented for ETHx on Goerli
 const stxAddr = "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E"; // Goerli StreamExchange contract
 const isuAddr = "0x22ff293e14F1EC3A09B137e9e06084AFd63adDF9"; // Goerli ISuperfluid contract
 const idaAddr = "0xfDdcdac21D64B639546f3Ce2868C7EF06036990c"; // Goerli Instant Distribution Agreement contract
+const cfaAddr = "0xEd6BcbF6907D4feEEe8a8875543249bEa9D308E8"; // Goerli Constant Flow Agreement contract
 const resAddr = "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E";
 // const stxAddr = "0x851d3dd9dc97c1df1DA73467449B3893fc76D85B"; // Kovan StreamExchange contract
 // const isuAddr = "0xF0d7d1D47109bA426B9D8A3Cde1941327af1eea3"; // Kovan ISuperfluid contract
@@ -41,34 +43,34 @@ startStream(ETHxAddr);
 // }, false);
 
 
-async function approve(address) {
+async function approve(erc20address) {
   // Get the address for approval
     await host.methods.callAgreement(
         idaAddr, // Goerli
         ida.methods.approveSubscription(
-            address,
+            erc20address,
             appAddr,
             0,
             "0x"
         ).encodeABI(),
         "0x"
     ).send({ from: user });
-    await refreshSubscription(address);
+    await refreshSubscription(erc20address);
  }
 
 
-async function refreshSubscription(address) {
+async function refreshSubscription(erc20address) {
    const sub = await ida.methods.getSubscription(
-       address,
-       appAddr,
-       0,
-       user
+      erc20address,
+      appAddr,
+      0,
+      user
    ).call();
    console.log(sub);
    if (sub.approved) {
-     let abtn = document.getElementById("approve-"+address);
-     let sbtn = document.getElementById("start-"+address);
-     let input = document.getElementById("input-amt-"+address);
+     let abtn = document.getElementById("approve-"+erc20address);
+     let sbtn = document.getElementById("start-"+erc20address);
+     let input = document.getElementById("input-amt-"+erc20address);
      abtn.innerHTML = sub.approved ? "Approved" : "no";
      abtn.disabled = true;
      sbtn.disabled = false;
@@ -106,15 +108,24 @@ async function getBalance(tokenAddress,elementId) {
     // console.log(payload.balance);
   })
   .catch(function (error) {
-    // console.log("Oof, that's an error: " + error);
+    console.log("Oof, that's an error: " + error);
   });
 
 }
+
+
 
 async function main() {
   await ethereum.enable();
   web3 = new Web3(ethereum);
   user = (await web3.eth.getAccounts())[0];
+  
+  // import SuperfluidSDK from '@superfluid-finance/js-sdk';
+  // sf = new SuperfluidSDK.Framework({
+  //   web3: new Web3(window.ethereum)
+  // });
+  // await sf.initialize()
+
   // setInterval(getBalance(ETHxAddr,"DCAAssetBalance"),5000);
   balance_call = setInterval(() => getBalance(fUSDCxAddr,"USDCxBalance"),5000);
   // clearInterval(balance_call)
